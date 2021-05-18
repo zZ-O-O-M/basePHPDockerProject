@@ -1,0 +1,21 @@
+version: '3'
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - php
+    volumes:
+      - ./hosts:/etc/nginx/conf.d
+      - ./public:/var/www
+      - ./logs/nginx:/var/log/nginx
+
+  php:
+    image: php:7.2-fpm
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./public:/var/www
